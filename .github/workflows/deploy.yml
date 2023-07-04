@@ -64,14 +64,7 @@ jobs:
     - name: Move output
       run: mv "${{ env.CUO_OUTPUT_PATH }}/${{ env.CUO_ZIP_NAME }}" upload
               
-    - name: Remove old Release
-      uses: dev-drprasad/delete-tag-and-release@v0.2.1
-      with:
-        delete_release: true
-        tag_name: ClassicUO-dev-release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
@@ -82,13 +75,5 @@ jobs:
         tag: ClassicUO-dev-release
         token: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.3.2
-      with:
-        server: ftp.classicuo.eu
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PSW }}
-        protocol: ftps
-        server-dir: /www.classicuo.eu/dev/deploy/
-        local-dir: upload/
+  
         
